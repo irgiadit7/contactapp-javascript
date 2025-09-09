@@ -1,52 +1,34 @@
-const http = require('http');
+const express = require('express');
+const app = express();
 const port = 3000;
-const fs = require('fs');
 
-const renderHtml = (path, res) => {
-     fs.readFile(path, (err, data) => {
-                if(err){
-                    res.writeHead(404);
-                    res.write('Error 404: file not found....');
-                } else{
-                    res.write(data)
-                }
-
-                res.end();
+app.get('/', (req, res) => {
+//   res.send('Hello World!')
+    // res.json({
+    //     nama: 'irgi',
+    //     email: 'owijdw@gmail.com',
+    //     nomorHp: '1012983',
+    // });
+    res.sendFile('./index.html', {root: __dirname });
 });
-};
 
-http
-    .createServer((req, res) => {
-        res.writeHead(200, {
-            'Content-Type': 'text/html',
-        });
+app.get('/about', (req, res) => {
+ res.sendFile('./about.html', {root: __dirname });
+});
 
-        const url = req.url;
-        
+app.get('/contact', (req, res) => {
+  res.sendFile('./contact.html', {root: __dirname });
+});
 
-        switch(url) {
-            case '/about':
-                renderHtml('./about.html', res);
-                break;
-             case '/contact':
-                renderHtml('./contact.html', res);
-                break;
-             default:
-                renderHtml('./index.html', res);
-                break;
-        }
-        
-        
-        // if( url === '/about'){
-        //      renderHtml('./about.html', res);
-        // } else if (url === '/contact'){
-        //     renderHtml('./contact.html', res);
-        // }else {
-            
-        //     // res.write('helllo world!');
-        //    renderHtml('./index.html', res);
-        // }
-    })
-    .listen(port, ()=> {
-        console.log(`Server is listening on port  ${port}....`);
+app.get('/product/:id', (req, res) => {
+    res.send(`Product ID : ${req.params.id} <br> Category: ${req.query.category}`)
+});
+
+app.use('/', (req, res) => {
+    res.status(404);
+    res.send('<h1>404</h1>');
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
 });
