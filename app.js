@@ -1,27 +1,53 @@
 const express = require('express');
+const expressLayouts = require('express-ejs-layouts');
+
 const app = express();
 const port = 3000;
 
+//gunakan ejs
+app.set('view engine', 'ejs');
+app.use(expressLayouts);
+app.use(express.static('public'));
+
 app.get('/', (req, res) => {
-//   res.send('Hello World!')
-    // res.json({
-    //     nama: 'irgi',
-    //     email: 'owijdw@gmail.com',
-    //     nomorHp: '1012983',
-    // });
-    res.sendFile('./index.html', {root: __dirname });
+    const mahasiswa = [
+        {
+            nama: 'Irgi',
+            email: 'Irgi Adit Pratama@gmail.com'
+        },
+        {
+            nama: 'Dirman',
+            email: 'Sudirman@gmail.com'
+        },
+        {
+            nama: 'aan',
+            email: 'Saipul Anwar@gmail.com'
+        },
+    ]
+  res.render('index', { 
+    nama: 'Irgi',
+    title: 'Halaman Home',
+    mahasiswa,
+    layout: 'layouts/main-layout'
+   });
 });
 
 app.get('/about', (req, res) => {
- res.sendFile('./about.html', {root: __dirname });
+    res.render('about', { 
+        layout: 'layouts/main-layout',
+        title: 'Halaman About'
+    });
 });
 
 app.get('/contact', (req, res) => {
-  res.sendFile('./contact.html', {root: __dirname });
+    res.render('contact', {
+        layout: 'layouts/main-layout',
+        title: 'Halaman Contact'
+    });
 });
 
 app.get('/product/:id', (req, res) => {
-    res.send(`Product ID : ${req.params.id} <br> Category: ${req.query.category}`)
+    res.send(`Product ID : ${req.params.id} <br> Category : ${req.query.category}`);
 });
 
 app.use('/', (req, res) => {
@@ -30,5 +56,5 @@ app.use('/', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Example app listening on port ${port}`);
 });
