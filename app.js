@@ -1,13 +1,24 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
-
+const morgan = require('morgan');
 const app = express();
 const port = 3000;
 
 //gunakan ejs
 app.set('view engine', 'ejs');
+
+//third-party middleware
 app.use(expressLayouts);
+app.use(morgan('dev'));
+
+//built-in middleware
 app.use(express.static('public'));
+
+//apllication level middleware
+app.use((req, res, next)=>{
+  console.log('Time: ', Date.now());
+  next();
+});
 
 app.get('/', (req, res) => {
     const mahasiswa = [
