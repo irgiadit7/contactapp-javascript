@@ -8,7 +8,7 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
 
-//gunakan ejs
+//ejs
 app.set('view engine', 'ejs');
 
 app.use(expressLayouts); //third-party middleware
@@ -29,18 +29,6 @@ app.use(flash());
 
 app.get('/', (req, res) => {
     const mahasiswa = [
-        {
-            nama: 'Irgi',
-            email: 'Irgi Adit Pratama@gmail.com'
-        },
-        {
-            nama: 'Dirman',
-            email: 'Sudirman@gmail.com'
-        },
-        {
-            nama: 'aan',
-            email: 'Saipul Anwar@gmail.com'
-        },
     ]
   res.render('index', { 
     nama: 'Irgi',

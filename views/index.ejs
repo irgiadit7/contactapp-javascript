@@ -12,11 +12,11 @@
         <li><a href="/about">About</a></li>
         <li><a href="/contact">Contact</a></li>
     </ul>
-    <h2>Hallo <%= nama %></h2>
+    <h2>Learning project EJS  @<%= nama %></h2>
 
-    <h4>Daftar Mahasiswa</h4>
+    <h4>Contact list </h4>
     <% if (mahasiswa.length < 1) { %>
-     <p>data mahasiswa masih kosong</p>
+     <p>the contact data is still empty, please fill it in first!</p>
     <% } else { %>
     <% mahasiswa.forEach(mhs => { %>
         <ul>
